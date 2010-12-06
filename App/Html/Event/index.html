@@ -1,0 +1,19 @@
+<?php
+if (0 == count($this->events)) {
+    ?>
+<div class="post">
+    <h2 class="title"><a href="#">Es sind keine Termine eingetragen</a></h2>
+</div>
+    <?php
+}
+foreach($this->events as $event):
+?>
+<div class="post">
+    <h2 class="title"><a href="#"><?php echo $event->getName() ?></a></h2>
+    <p class="meta"><span class="date"><?php echo strftime('%d.%m.%Y ', $event->getTime()) . $event->getLocation()->getName() ?></span></p>
+    <div style="clear: both;">&nbsp;</div>
+    <div class="entry">
+        <p><?php echo $event->getDescription() ?></p>
+    </div>
+</div>
+<?php endforeach; ?>
