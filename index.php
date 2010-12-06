@@ -8,7 +8,7 @@ try {
     $request = new Vpfw_Request_Http();
     $response = new Vpfw_Response_Http();
     $router = new Vpfw_Router_Standard();
-    $fC = new Vpfw_Controller_Front($router);
+    $fC = new App_Controller_Front_Explicit($router);
     $fC->handleRequest($request, $response);
 } catch (Vpfw_Exception_Critical $e) {
     echo $e->getMessage();
