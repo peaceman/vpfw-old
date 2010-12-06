@@ -72,6 +72,9 @@ class Vpfw_Factory {
             case 'Event':
                 self::$objectCache[$className] = new App_DataMapper_Event(self::getDatabase());
                 break;
+            case 'Location':
+                self::$objectCache[$className] = new App_DataMapper_Location(self::getDatabase());
+                break;
             default:
                 throw new Vpfw_Exception_Logical('Die Abhängigkeiten des DataMappers mit dem Typ ' . $type . ' konnten nicht aufgelöst werden');
                 break;
@@ -113,6 +116,8 @@ class Vpfw_Factory {
                 }
                 return $dataObject;
                 break;
+            case 'Location':
+                return new App_DataObject_Location(self::getValidator('Location'), $properties);
             default:
                 throw new Vpfw_Exception_Logical('Die Abhängigkeiten des DataObjects mit dem Typ ' . $type . ' konnten nicht aufgelöst werden');
                 break;

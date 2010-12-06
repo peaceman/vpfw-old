@@ -13,6 +13,20 @@ abstract class Vpfw_DataObject_Abstract implements Vpfw_DataObject_Interface {
     protected $sthChanged = false;
 
     /**
+     * @return bool
+     */
+    public function isSomethingChanged() {
+        return $this->sthChanged;
+    }
+
+    /**
+     * @param bool $state
+     */
+    public function setSomethingChanged($state) {
+        $this->sthChanged = $state;
+    }
+    
+    /**
      * @throws Vpfw_Exception_Logical
      * @param int $which
      * @return array
@@ -78,6 +92,21 @@ abstract class Vpfw_DataObject_Abstract implements Vpfw_DataObject_Interface {
         }
         if (false == array_keys_exists(array('val', 'changed'), $this->data[$keyName])) {
             throw new Vpfw_Exception_Logical('Das data Array in ' . get_called_class() . ' besitzt nicht die erwartete Struktur');
+        }
+    }
+
+    /**
+     * @throws Vpfw_Exception_Logical
+     * @param int $id
+     * @param bool $validate
+     */
+    public function setId($id, $validate = true) {
+        if ($this->getId() != $id) {
+            if (true == $validate) {
+                throw new Vpfw_Exception_Logical('Die Id eines DataObjects darf nicht manuell gesetzt werden');
+            } else {
+                $this->setData('Id', $id);
+            }
         }
     }
 }

@@ -61,7 +61,7 @@ class Vpfw_Database_Mysql extends Vpfw_Abstract_Loggable {
     public function prepare($qry) {
         $stmt = $this->mysqli->prepare($qry);
         if (false == $stmt) {
-            throw new Vpfw_Exception_Critical($this->mysqli->error);
+            throw new Vpfw_Exception_Critical('MySQL-Error: (' . $this->mysqli->errno . ') ' . $this->mysqli->error);
         }
         return $this->mysqli->prepare($qry);
     }
