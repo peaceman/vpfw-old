@@ -121,7 +121,7 @@ class App_DataObject_Event extends Vpfw_DataObject_Abstract {
     public function setDescription($description, $validate = true) {
         if ($this->getDescription() != $description) {
             if (true == $validate) {
-                $this->validator->validateTime($description);
+                $this->validator->validateDescription($description);
             }
             $this->setData('Description', $description);
         }
@@ -141,7 +141,7 @@ class App_DataObject_Event extends Vpfw_DataObject_Abstract {
      * @param bool $validate
      */
     public function setLocationId($id, $validate = true) {
-        if ($this_) {
+        if ($this->getLocationId() != $id) {
             if (true == $validate) {
                 $this->validator->validateLocationId($id);
             }

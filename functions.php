@@ -1,7 +1,7 @@
 <?php
 function array_keys_exists($keys, $array) {
     foreach($keys as $k) {
-        if(!isset($array[$k])) {
+        if (false == array_key_exists($k, $array)) {
             return false;
         }
     }
@@ -46,8 +46,10 @@ function __autoload($className) {
     $classPath .= $classNameArr[$i] . '.php';
     if (file_exists($classPath)) {
         require_once($classPath);
+        return true;
     } else {
-        throw new Exception('Unknown class ' . $className . ' in '. getcwd());
+        return false;
+        //throw new Exception('Unknown class ' . $className . ' in '. getcwd());
     }
 }
 

@@ -12,8 +12,8 @@ class Vpfw_ObserverArray implements ArrayAccess, Iterator, Countable, Vpfw_Inter
     }
 
     public function offsetSet($offset, $value) {
-        if (false == Vpfw_Interface_Observable instanceof $value) {
-            throw new Vpfw_Exception_Logical('Falscher Objekttyp');
+        if (false == $value instanceof Vpfw_Interface_Observable) {
+            throw new Vpfw_Exception_Logical('Falscher Objekttyp, Objekte die in einem Vpfw_ObserverArray gespeichert werden sollen müssen das Vpfw_Interface_Observable implementieren');
         }
         $this->storage[$offset] = $value;
         $value->attachObserver($this);

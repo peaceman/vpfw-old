@@ -330,37 +330,6 @@ abstract class Vpfw_DataMapper_Abstract implements Vpfw_DataMapper_Interface, Vp
      *
      * Sucht nur in der Datenbank, nicht im lokalen Cache oder in $this->toInsert
      *
-     * Wenn es sich bei $fieldValues um ein eindimensionales Array handelt,
-     * werden die Arrayelemente mit einem OR verknüpft. Sollte es sich jedoch um
-     * ein zweidimensionales Array handeln, werden die Elemente in der ersten
-     * Dimension mit einem OR und die Elemente in der zweiten Dimension mit
-     * einem AND verknüpft.
-     *
-     * Beispiel:
-     * array(
-     *     'i|Id|4',
-     *     'i|Id|5',
-     * );
-     * Resultiert in:
-     * WHERE
-     *     Id = 4 OR
-     *     Id = 5
-     *
-     * array(
-     *     array(
-     *         's|Name|aloha',
-     *         'i|Iq|50',
-     *     ),
-     *     array(
-     *         's|Name|blubber',
-     *         'i|Iq|60',
-     *     ),
-     * );
-     * Resultiert in:
-     * WHERE
-     *     (Name = aloha AND Iq = 50) OR
-     *     (Name = blubber AND Iq = 60)
-     *
      * @param array $fieldValues
      * @return array Array aus Vpfw_DataObject_Interface
      */
@@ -406,6 +375,7 @@ abstract class Vpfw_DataMapper_Abstract implements Vpfw_DataMapper_Interface, Vp
         list($paramTypes, $whereClause, $values) = self::parseFieldValues($fieldValues);
         $stmt = $this->db->prepare(str_replace('{WhereClause}', $whereClause, $this->sqlQueries['fvExists']));
         array_unshift($values, $paramTypes);
+        call_user_func_array(array($stmt, 'bind_param'), $values);
         $stmt->execute();
         if (0 != $stmt->num_rows) {
             return true;
@@ -437,8 +407,38 @@ abstract class Vpfw_DataMapper_Abstract implements Vpfw_DataMapper_Interface, Vp
     }
 
     /**
+     * Wenn es sich bei $fieldValues um ein eindimensionales Array handelt,
+     * werden die Arrayelemente mit einem OR verknüpft. Sollte es sich jedoch um
+     * ein zweidimensionales Array handeln, werden die Elemente in der ersten
+     * Dimension mit einem OR und die Elemente in der zweiten Dimension mit
+     * einem AND verknüpft.
+     *
+     * Beispiel:
+     * array(
+     *     'i|Id|4',
+     *     'i|Id|5',
+     * );
+     * Resultiert in:
+     * WHERE
+     *     Id = 4 OR
+     *     Id = 5
+     *
+     * array(
+     *     array(
+     *         's|Name|aloha',
+     *         'i|Iq|50',
+     *     ),
+     *     array(
+     *         's|Name|blubber',
+     *         'i|Iq|60',
+     *     ),
+     * );
+     * Resultiert in:
+     * WHERE
+     *     (Name = aloha AND Iq = 50) OR
+     *     (Name = blubber AND Iq = 60)
      * @param array $fieldValues
-     * @return array
+     * @return array Beinhaltet die Parametertypen und die WhereClause als String und die Values als array
      */
     protected static function parseFieldValues(array $fieldValues) {
         $paramTypes = '';
@@ -478,7 +478,7 @@ abstract class Vpfw_DataMapper_Abstract implements Vpfw_DataMapper_Interface, Vp
         }
 
         foreach ($this->cache as $dataObject) {
-            if (true == $this->dataObject->isSomethingChanged()) {
+            if (true == $dataObject->isSomethingChanged()) {
                 $this->update($dataObject);
             }
         }

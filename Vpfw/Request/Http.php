@@ -32,4 +32,12 @@ class Vpfw_Request_Http implements Vpfw_Request_Interface {
     public function getRemoteAddress() {
         return $_SERVER['REMOTE_ADDR'];
     }
+
+    public static function url($controller, $action = 'index', $parameters = array()) {
+        $retUrl = 'index.php?cOn=' . urlencode($controller) . '&aCt=' . urlencode($action);
+        foreach ($parameters as $key => $value) {
+            $retUrl .= '&' . urlencode($key) . '=' . urlencode($value);
+        }
+        return $retUrl;
+    }
 }

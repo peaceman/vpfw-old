@@ -11,7 +11,16 @@ try {
     $fC = new App_Controller_Front_Explicit($router);
     $fC->handleRequest($request, $response);
 } catch (Vpfw_Exception_Critical $e) {
+    echo '<pre>';
     echo $e->getMessage();
+    echo '</pre>';
+} catch (Vpfw_Exception_Logical $e) {
+    echo '<h3>Na, Code wieder nur hingebatscht und nicht den Koran befragt?!</h3>' . PHP_EOL;
+    echo '<pre>';
+    echo $e->getTraceAsString() . PHP_EOL;
+    echo $e->getMessage() . PHP_EOL;
+    echo $e->getFile() . ' @ ' . $e->getLine() . PHP_EOL;
+    echo '<pre>';
 }
 
 try {

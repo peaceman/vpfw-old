@@ -21,6 +21,14 @@ class Vpfw_Factory {
             case 'User':
                 self::$objectCache[$className] = new App_Validator_User(self::getModel('User'));
                 break;
+            case 'Location':
+                self::$objectCache[$className] = new App_Validator_Location(self::getDataMapper('Location'));
+                break;
+            case 'Event':
+                self::$objectCache[$className] = new App_Validator_Event(self::getDataMapper('Event'), self::getDataMapper('Location'));
+                break;
+            default:
+                throw new Vpfw_Exception_Logical('Die Abhängigkeiten des Validators mit dem Typ ' . $type . ' konnten nicht aufgelöst werden');
         }
 
         return self::$objectCache[$className];
