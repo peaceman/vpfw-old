@@ -14,7 +14,7 @@ class App_DataMapper_Event extends Vpfw_DataMapper_Abstract {
                                             a.Id,
                                             a.Name,
                                             a.Time,
-                                            a.Description
+                                            a.Description,
                                             b.Id AS LocationId,
                                             b.Name AS LocationName
                                         FROM

@@ -1,19 +1,16 @@
-<?php
-if (0 == count($this->projects)) {
+<?php if (0 == count($this->projects)): ?>
     ?>
     <div class="post">
         <h2 class="title"><a href="#">Es sind keine Projekte eingetragen</a></h2>
     </div>
-    <?php
-}
-foreach($this->projects as $prj):
-?>
+<?php endif; ?>
+<?php foreach($this->projects as $prj): ?>
 <div class="post">
-    <h2 class="title"><a href="#"><?php echo $prj->getName() ?></a></h2>
+    <h2 class="title"><a href="<?php HE(Vpfw_Request_Http::url('project', 'show', array('id' => $prj->getId()))) ?>"><?php HE($prj->getName()) ?></a></h2>
     <div style="clear: both;">&nbsp;</div>
     <div class="entry">
         <p>
-            <?php echo $prj->getDescription() ?>
+            <?php HE(substr($prj->getDescription(), 0, 500) . '. . .   '); ?><a href="<?php HE(Vpfw_Request_Http::url('project', 'show', array('id' => $prj->getId())))?>">mehr</a>
         </p>
     </div>
 </div>

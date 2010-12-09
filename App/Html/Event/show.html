@@ -1,0 +1,8 @@
+<div class="post">
+    <h2 class="title"><a href="#"><?php HE($this->event->getName()) ?></a></h2>
+    <p class="meta"><span class="date"><?php HE(strftime('%d.%m.%Y ', $this->event->getTime()) . $this->event->getLocation()->getName()) ?></span></p>
+    <div style="clear: both;">&nbsp;</div>
+    <div class="entry">
+        <p><?php echo $this->event->getDescription() ?></p>
+    </div>
+</div>

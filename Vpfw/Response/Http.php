@@ -25,7 +25,7 @@ class Vpfw_Response_Http implements Vpfw_Response_Interface {
     }
 
     public function flush() {
-        header('HTTP/1.0' . $this->status);
+        header('HTTP/1.1 ' . $this->status);
         foreach($this->headers as $name => $value) {
             header($name . ': ' . $value);
         }

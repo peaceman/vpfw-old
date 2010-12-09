@@ -226,6 +226,7 @@ abstract class Vpfw_DataMapper_Abstract implements Vpfw_DataMapper_Interface, Vp
      * gefunden worden sein wird eine Exception vom Typ Vpfw_Exception_OutOfRange
      * geworfen.
      *
+     * @throws Vpfw_Exception_OutOfRange
      * @param int $id Die zu suchende Id
      * @param bool $autoLoad Schalter ob in der Datenbank nach einem passenden Objekt gesucht werden soll
      * @return Vpfw_DataObject_Interface
@@ -240,6 +241,7 @@ abstract class Vpfw_DataMapper_Abstract implements Vpfw_DataMapper_Interface, Vp
         $stmt = $this->db->prepare($this->sqlQueries['getById']);
         $stmt->bind_param('i', $id);
         $stmt->execute();
+        $stmt->store_result();
         if (1 != $stmt->num_rows) {
             throw new Vpfw_Exception_OutOfRange('Konnte kein Element mit der Id ' . $id . ' in der Modelklasse ' . get_called_class() . ' finden.');
         }

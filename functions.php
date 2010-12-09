@@ -61,3 +61,31 @@ function singleValueToArray($value) {
     }
     return $value;
 }
+
+function HE($string) {
+    echo htmlentities($string);
+}
+
+// Substring without losing word meaning and
+// tiny words (length 3 by default) are included on the result.
+// "..." is added if result do not reach original string length
+
+function _substr($str, $length, $minword = 3)
+{
+    $sub = '';
+    $len = 0;
+
+    foreach (explode(' ', $str) as $word)
+    {
+        $part = (($sub != '') ? ' ' : '') . $word;
+        $sub .= $part;
+        $len += strlen($part);
+
+        if (strlen($word) > $minword && strlen($sub) >= $length)
+        {
+            break;
+        }
+    }
+
+    return $sub . (($len < strlen($str)) ? '...' : '');
+}

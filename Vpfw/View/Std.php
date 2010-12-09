@@ -32,4 +32,8 @@ class Vpfw_View_Std implements Vpfw_View_Interface {
             return $this->vars[$name];
         }
     }
+
+    public function __set($name, $value) {
+        $this->setVar($name, $value);
+    }
 }

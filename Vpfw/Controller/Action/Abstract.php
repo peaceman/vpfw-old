@@ -42,6 +42,10 @@ abstract class Vpfw_Controller_Action_Abstract implements Vpfw_Controller_Action
         $this->actionToExecute = $actionName;
     }
 
+    public function getActionName() {
+        return str_replace('Action', '', $this->actionToExecute);
+    }
+
     /**
      *
      * @param Vpfw_View_Interface $view

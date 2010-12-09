@@ -223,7 +223,7 @@ class Vpfw_Factory {
         if (false == is_null($view)) {
             $aC->setView($view);
         } else {
-            $aC->setView(self::getView($name, $action));
+            $aC->setView(self::getView($name, $aC->getActionName()));
         }
         return $aC;
     }

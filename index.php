@@ -21,6 +21,8 @@ try {
     echo $e->getMessage() . PHP_EOL;
     echo $e->getFile() . ' @ ' . $e->getLine() . PHP_EOL;
     echo '<pre>';
+} catch (Vpfw_Exception_Die $e) {
+    
 }
 
 try {

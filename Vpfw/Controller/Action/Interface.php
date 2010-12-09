@@ -8,6 +8,10 @@ interface Vpfw_Controller_Action_Interface {
      */
     public function getView();
     /**
+     * @return string
+     */
+    public function getActionName();
+    /**
      * @param string $placeHolderName
      * @param mixed $ctrlInfo Array aus controllerName und actionName oder der ActionController als Objekt
      */
