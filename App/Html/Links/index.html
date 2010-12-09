@@ -1,8 +1,0 @@
-<ul>
-    <?php if (0 == count($this->links)): ?>
-    <li>Es sind keine Links eingetragen</li>
-    <?php endif; ?>
-    <?php foreach ($this->links as $link): ?>
-    <li><a href="<?php HE($link->getUrl()); ?>"><?php HE($link->getName()); ?></a></li>
-    <?php endforeach; ?>
-</ul>
