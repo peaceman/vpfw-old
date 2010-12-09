@@ -27,6 +27,12 @@ class Vpfw_Factory {
             case 'Event':
                 self::$objectCache[$className] = new App_Validator_Event(self::getDataMapper('Event'), self::getDataMapper('Location'));
                 break;
+            case 'Project':
+                self::$objectCache[$className] = new App_Validator_Project(self::getDataMapper('Project'));
+                break;
+            case 'Link':
+                self::$objectCache[$className] = new App_Validator_Link(self::getDataMapper('Link'));
+                break;
             default:
                 throw new Vpfw_Exception_Logical('Die Abhängigkeiten des Validators mit dem Typ ' . $type . ' konnten nicht aufgelöst werden');
         }
@@ -83,6 +89,12 @@ class Vpfw_Factory {
             case 'Location':
                 self::$objectCache[$className] = new App_DataMapper_Location(self::getDatabase());
                 break;
+            case 'Project':
+                self::$objectCache[$className] = new App_DataMapper_Project(self::getDatabase());
+                break;
+            case 'Link':
+                self::$objectCache[$className] = new App_DataMapper_Link(self::getDatabase());
+                break;
             default:
                 throw new Vpfw_Exception_Logical('Die Abhängigkeiten des DataMappers mit dem Typ ' . $type . ' konnten nicht aufgelöst werden');
                 break;
@@ -126,6 +138,13 @@ class Vpfw_Factory {
                 break;
             case 'Location':
                 return new App_DataObject_Location(self::getValidator('Location'), $properties);
+                break;
+            case 'Project':
+                return new App_DataObject_Project(self::getValidator('Project'), $properties);
+                break;
+            case 'Link':
+                return new App_DataObject_Link(self::getValidator('Link'), $properties);
+                break;
             default:
                 throw new Vpfw_Exception_Logical('Die Abhängigkeiten des DataObjects mit dem Typ ' . $type . ' konnten nicht aufgelöst werden');
                 break;

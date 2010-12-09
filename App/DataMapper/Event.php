@@ -1,9 +1,5 @@
 <?php
 class App_DataMapper_Event extends Vpfw_DataMapper_Abstract {
-    /**
-     *
-     * @var App_DataMapper_Location
-     */
     protected function fillDetailData() {
         $this->dataColumns = array(
                 'Id' => 'i',

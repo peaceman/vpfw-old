@@ -10,6 +10,7 @@ class Vpfw_Database_Mysql extends Vpfw_Abstract_Loggable {
      * In diesem Array werden die ausgeführten SQL-Queries zur Auswertung oder
      * ähnlichem gespeichert.
      * @var array
+     * @todo Das loggen der ausgeführten SQL-Queries sollte noch implementiert werden
      */
     private $executedQueries;
 

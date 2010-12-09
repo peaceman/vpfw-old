@@ -147,7 +147,7 @@ abstract class Vpfw_DataObject_Abstract implements Vpfw_DataObject_Interface, Vp
      */
     private function initialFill(array $properties) {
         foreach ($properties as $propName => $propValue) {
-            $this->setData($propName, $propValue);
+            $this->setData($propName, $propValue, false);
         }
     }
 
