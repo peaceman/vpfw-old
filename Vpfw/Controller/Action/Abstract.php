@@ -78,6 +78,11 @@ abstract class Vpfw_Controller_Action_Abstract implements Vpfw_Controller_Action
         }
     }
 
+    /**
+     * Speichert die ActionController unter dem $placeHolderName in einem Array
+     * @param string $placeHolderName Mit diesem Platzhalter kann die Position dieses ActionControllers im Layout bestimmt werden
+     * @param Vpfw_Controller_Action_Interface $ctrlInfo
+     */
     public function addChildController($placeHolderName, $ctrlInfo) {
         if (true == is_array($ctrlInfo)) {
             if (2 != count($ctrlInfo)) {
