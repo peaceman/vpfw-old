@@ -1,7 +1,0 @@
-<ul>
-    <?php foreach ($this->events as $event):
-    $url = Vpfw_Request_Http::url('Event', 'show', array('evId' => $event->getId()));
-    ?>
-    <li><a href="<?php echo $url ?>"><?php echo $event->getName() ?> <?php echo strftime('%d.%m.%Y ', $event->getTime()) ?></a></li>
-    <?php endforeach; ?>
-</ul>
