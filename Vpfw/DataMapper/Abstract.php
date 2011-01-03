@@ -1,7 +1,21 @@
 <?php
 abstract class Vpfw_DataMapper_Abstract implements Vpfw_DataMapper_Interface, Vpfw_Interface_Cleaner {
+    /**
+     * Verwalteter Datenspeicher für DataObjects
+     * @var Vpfw_Database_Mysql
+     */
     protected $db;
+
+    /**
+     * Verwalter Datenspeicher für DataObjects
+     * @var Vpfw_ObserverArray
+     */
     protected $cache;
+
+    /**
+     *
+     * @var Vpfw_ObserverArray
+     */
     protected $toInsert;
 
     /**
@@ -68,6 +82,11 @@ abstract class Vpfw_DataMapper_Abstract implements Vpfw_DataMapper_Interface, Vp
                          Id = ?'
     );
 
+    /**
+     * Konstruktor
+     *
+     * @param Vpfw_Database_Mysql $db
+     */
     public function __construct(Vpfw_Database_Mysql $db) {
         $this->db = $db;
         $this->cache = new Vpfw_ObserverArray();
@@ -81,6 +100,8 @@ abstract class Vpfw_DataMapper_Abstract implements Vpfw_DataMapper_Interface, Vp
      * Befüllt die Objekteigenschaften dataColumns und tableName, desweiteren
      * können hier auch die SQL-Queries ersetzt werden, wenn die Standardqueries
      * nicht ausreichen sollten.
+     *
+     * @return void
      */
     abstract protected function fillDetailData();
     
@@ -91,6 +112,8 @@ abstract class Vpfw_DataMapper_Abstract implements Vpfw_DataMapper_Interface, Vp
      * in der jeweiligen Kindklasse durch ihren Inhalt ersetzt werden. Dabei
      * spielt es keine Rolle ob diese Elternmethode am Schluss der Kindmethode
      * oder am Anfang ausgeführt wird.
+     *
+     * @return void
      */
     protected function fixSqlQueries() {
         $columns = '';
@@ -121,6 +144,17 @@ abstract class Vpfw_DataMapper_Abstract implements Vpfw_DataMapper_Interface, Vp
         }
     }
 
+    /**
+     * Diese Methode kapselt das erzeugen von DataObjects wobei sie hierbei auch
+     * nur die Vpfw_Factory mit dem erzeugen beauftragt. Der Sinn dieser Methode
+     * liegt jedoch darin, dass die erzeugten DataObjects gleich in den
+     * verwalteten Arrays des DataMappers referenziert werden und somit nicht
+     * verloren gehen können.
+     *
+     * @param array $parameters Optionale Parameter, die der Methode publicate des erzeugten DataObjects übergeben werden
+     * @param bool $forceInsert Steht dieser Wert auf true ist der Parameter $parameters nichtmehr optional und das erzeugte DataObject wird direkt in die Datenbank eingetragen
+     * @return Vpfw_DataObject_Interface
+     */
     public function createEntry($parameters = null, $forceInsert = false) {
         $doName = explode('_', get_called_class());
         $doName = $doName[2];
@@ -153,7 +187,10 @@ abstract class Vpfw_DataMapper_Abstract implements Vpfw_DataMapper_Interface, Vp
      *
      * Die spezifische Kindklasse kümmert sich um die Typsicherheit.
      *
+     * @throws Vpfw_Exception_Logical
+     * @throws Vpfw_Exception_Critical
      * @param Vpfw_DataObject_Interface $dataObject
+     * @return void
      */
     protected function insert(Vpfw_DataObject_Interface $dataObject) {
         $data = $dataObject->exportData();
@@ -180,8 +217,11 @@ abstract class Vpfw_DataMapper_Abstract implements Vpfw_DataMapper_Interface, Vp
     /**
      * Schreibt die Änderungen die an dem übergebenen DataObject vollzogen
      * wurden zurück in die Datenbank
-     * 
+     *
+     * @throws Vpfw_Exception_Logical
+     * @throws Vpfw_Exception_Critical
      * @param Vpfw_DataObject_Interface $dataObject
+     * @return void
      */
     protected function update(Vpfw_DataObject_Interface $dataObject) {
         $data = $dataObject->exportData(Vpfw_DataObject_Interface::CHANGED);
@@ -267,7 +307,7 @@ abstract class Vpfw_DataMapper_Abstract implements Vpfw_DataMapper_Interface, Vp
     public function getAllEntries() {
         $stmt = $this->db->prepare($this->sqlQueries['getAll']);
         $stmt->execute();
-
+        $stmt->store_result();
         $metaData = $stmt->result_metadata();
         $params = array();
         $row = array();
@@ -294,8 +334,10 @@ abstract class Vpfw_DataMapper_Abstract implements Vpfw_DataMapper_Interface, Vp
      * $strict auf true steht wird eine Exception vom Typ
      * Vpfw_Exception_OutOfRange geworfen.
      *
+     * @throws Vpfw_Exception_OutOfRange
      * @param int $id
      * @param bool $strict
+     * @return void
      */
     public function deleteEntryById($id, $strict = false) {
         if (true == isset($this->cache[$id])) {
@@ -313,6 +355,8 @@ abstract class Vpfw_DataMapper_Abstract implements Vpfw_DataMapper_Interface, Vp
     /**
      * Löscht alle DataObjects aus dem lokalen Cache, $this->toInsert und
      * aus der Datenbank.
+     *
+     * @return void
      */
     public function deleteAllEntries() {
         foreach ($this->cache as $dataObject) {
@@ -343,6 +387,7 @@ abstract class Vpfw_DataMapper_Abstract implements Vpfw_DataMapper_Interface, Vp
         array_unshift($values, $paramTypes);
         call_user_func_array(array($stmt, 'bind_param'), $values);
         $stmt->execute();
+        $stmt->store_result();
 
         $params = array();
         $row = array();
@@ -379,6 +424,7 @@ abstract class Vpfw_DataMapper_Abstract implements Vpfw_DataMapper_Interface, Vp
         array_unshift($values, $paramTypes);
         call_user_func_array(array($stmt, 'bind_param'), $values);
         $stmt->execute();
+        $stmt->store_result(); // Muss ausgeführt werden, da die Eigenschaft num_rows sonst immer null bleibt.
         if (0 != $stmt->num_rows) {
             return true;
         } else {
@@ -392,8 +438,10 @@ abstract class Vpfw_DataMapper_Abstract implements Vpfw_DataMapper_Interface, Vp
      *
      * Löscht nicht aus dem lokalen Cache oder aus $this->toInsert
      *
+     * @throws Vpfw_Exception_OutOfRange
      * @param array $fieldValues
      * @param bool $strict Sollte die Anzahl der gelöschten DataObjects nicht mit der Anzahl der Anforderungen übereinstimmen und diesr Schalter ist auf true gestellt wird eine Exception vom Typ Vpfw_Exception_OutOfRange geworfen.
+     * @return void
      */
     public function deleteEntriesByFieldValue(array $fieldValues, $strict = false) {
         list($paramTypes, $whereClause, $values) = self::parseFieldValues($fieldValues);
@@ -474,6 +522,13 @@ abstract class Vpfw_DataMapper_Abstract implements Vpfw_DataMapper_Interface, Vp
         return array($paramTypes, $whereClause, $values);
     }
 
+    /**
+     * Methode die vom Vpfw_Cleaner ausgeführt wird und
+     * neue bzw. veränderte DataObjects in die Datenbank
+     * zurückschreibt.
+     *
+     * @return void
+     */
     public function clean() {
         foreach ($this->toInsert as $dataObject) {
             $this->insert($dataObject);
