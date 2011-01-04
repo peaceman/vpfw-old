@@ -1,5 +1,5 @@
 <?php
-class Vpfw_Database_Mysql extends Vpfw_Abstract_Loggable {
+class Vpfw_Database_Mysql extends Vpfw_Abstract_Loggable implements Vpfw_Interface_Cleaner {
     /**
      * MySQL-Verbindung
      * @var mysqli
@@ -10,7 +10,6 @@ class Vpfw_Database_Mysql extends Vpfw_Abstract_Loggable {
      * In diesem Array werden die ausgeführten SQL-Queries zur Auswertung oder
      * ähnlichem gespeichert.
      * @var array
-     * @todo Das loggen der ausgeführten SQL-Queries sollte noch implementiert werden
      */
     private $executedQueries;
 
@@ -23,10 +22,6 @@ class Vpfw_Database_Mysql extends Vpfw_Abstract_Loggable {
         'LogQueries' => 'false',
     );
 
-    /**
-     * @var Vpfw_Config_Abstract
-     */
-    private $configObject;
 
     /**
      * Öffnet die Datenbankverbindung und wirft Exceptions vom Typ
@@ -36,6 +31,7 @@ class Vpfw_Database_Mysql extends Vpfw_Abstract_Loggable {
      */
     public function __construct(Vpfw_Config_Abstract $configObject, Vpfw_Log_Abstract $logObject) {
         parent::__construct($logObject);
+        Vpfw_Cleaner::cleanMePls($this);
         $this->logGroup = 'mysql';
         try {
             $this->config = array_merge($this->config, $configObject->getValue('MySQL'));
@@ -57,14 +53,14 @@ class Vpfw_Database_Mysql extends Vpfw_Abstract_Loggable {
     /**
      * Nur ein Wrapper für die prepare Methode der mysqli Klasse.
      * @param string $qry
-     * @return mysqli_stmt
+     * @return Vpfw_Database_MysqlStmt
      */
     public function prepare($qry) {
         $stmt = $this->mysqli->prepare($qry);
         if (false == $stmt) {
             throw new Vpfw_Exception_Critical('MySQL-Error: (' . $this->mysqli->errno . ') ' . $this->mysqli->error);
         }
-        return $stmt;
+        return new Vpfw_Database_MysqlStmt($stmt, $qry);
     }
 
     /**
@@ -85,6 +81,22 @@ class Vpfw_Database_Mysql extends Vpfw_Abstract_Loggable {
         $this->mysqli = new mysqli($accessData[0], $accessData[1], $accessData[2], $accessData[3], $mysqlPort);
         if (false != mysqli_connect_error()) {
             throw new Vpfw_Exception_Critical('Konnte keine Verbindung mit der MySQL-Datenbank herstellen. (' . mysqli_connect_errno() .') ' . mysqli_connect_error());
+        }
+    }
+    
+    /**
+     *
+     * @param string $qry 
+     */
+    public function addExecutedQuery($qry) {
+        $this->executedQueries[] = $qry;
+    }
+    
+    public function clean() {
+        if (true == $this->config['LogQueries']) {
+            foreach ($this->executedQueries as $qry) {
+                $this->log($qry, 'mysqlqry');
+            }
         }
     }
 }

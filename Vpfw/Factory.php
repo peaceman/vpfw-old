@@ -43,30 +43,6 @@ class Vpfw_Factory {
     /**
      *
      * @param string $type
-     * @return Vpfw_Model_Abstract
-     */
-    public static function getModel($type) {
-        $className = 'App_Model_' . $type;
-        if (true == isset(self::$objectCache[$className])) {
-            return self::$objectCache[$className];
-        }
-
-        if (false == class_exists($className)) {
-            throw new Vpfw_Exception_Logical('Ein Model des Typs ' . $type . ' existiert nicht');
-        }
-
-        switch ($type) {
-            case 'User':
-                self::$objectCache[$className] = new App_Model_User(self::getDatabase());
-                break;
-        }
-
-        return self::$objectCache[$className];
-    }
-
-    /**
-     *
-     * @param string $type
      * @return Vpfw_DataMapper_Interface
      */
     public static function getDataMapper($type) {

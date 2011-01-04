@@ -29,9 +29,13 @@ abstract class Vpfw_Abstract_Loggable {
      *
      * @param string $msg
      */
-    protected function log($msg) {
+    protected function log($msg, $logGroup = null) {
         if (isset($this->logObject)) {
-            $this->logObject->write($this->logGroup, $msg);
+            if (true == is_null($logGroup)) {
+                $this->logObject->write($this->logGroup, $msg);
+            } else {
+                $this->logObject->write($logGroup, $msg);
+            }
         }
     }
 
