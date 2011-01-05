@@ -29,4 +29,6 @@ while (false !== $pos = strpos($subject, '?')) {
     echo $subject . '<br />';
 }
 array_unshift($values, $subject);
-echo call_user_func_array('sprintf', $values);
+echo call_user_func_array('sprintf', $values) . '<br /><pre>';
+print_r($_SERVER);
+print_r(getallheaders());
