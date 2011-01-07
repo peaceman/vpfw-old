@@ -41,6 +41,9 @@ class Vpfw_Factory {
         }
 
         switch ($type) {
+            case 'User':
+                self::$objectCache[$className] = new App_DataMapper_User(self::getDatabase());
+                break;
             default:
                 throw new Vpfw_Exception_Logical('Die Abhängigkeiten des DataMappers mit dem Typ ' . $type . ' konnten nicht aufgelöst werden');
                 break;
@@ -55,6 +58,32 @@ class Vpfw_Factory {
         }
 
         switch ($type) {
+            case 'User':
+                $deletion = null; /* @var $deletion App_DataObject_Deletion */
+                if (false == is_null($properties)) {
+                    if (true == isset($properties['DeletionId'])) {
+                        try {
+                            $deletion = self::getDataMapper('Deletion')->getEntryById($properties['DeletionId'], false);
+                        } catch (Vpfw_Exception_OutOfRange $e) {
+                            $deletion = self::getDataMapper('Deletion')->createEntry(
+                                    array('Id' => $properties['DeletionId'],
+                                          'SessionId' => $properties['DelSessionId'],
+                                          'Time' => $properties['DelTime'],
+                                          'Reason' => $properties['DelReason'])
+                            );
+                        }
+                        unset($properties['DeletionId']);
+                        unset($properties['DelSessionId']);
+                        unset($properties['DelTime']);
+                        unset($properties['DelReason']);
+                    }
+                }
+                $dataObject = new App_DataObject_User(self::getValidator('User'), $properties);
+                if (false == is_null($deletion)) {
+                    $dataObject->setDeletion($deletion);
+                }
+                return $dataObject;
+                break;
             default:
                 throw new Vpfw_Exception_Logical('Die Abhängigkeiten des DataObjects mit dem Typ ' . $type . ' konnten nicht aufgelöst werden');
                 break;
