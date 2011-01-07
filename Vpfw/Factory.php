@@ -18,21 +18,6 @@ class Vpfw_Factory {
         }
 
         switch ($type) {
-            case 'User':
-                self::$objectCache[$className] = new App_Validator_User(self::getModel('User'));
-                break;
-            case 'Location':
-                self::$objectCache[$className] = new App_Validator_Location(self::getDataMapper('Location'));
-                break;
-            case 'Event':
-                self::$objectCache[$className] = new App_Validator_Event(self::getDataMapper('Event'), self::getDataMapper('Location'));
-                break;
-            case 'Project':
-                self::$objectCache[$className] = new App_Validator_Project(self::getDataMapper('Project'));
-                break;
-            case 'Link':
-                self::$objectCache[$className] = new App_Validator_Link(self::getDataMapper('Link'));
-                break;
             default:
                 throw new Vpfw_Exception_Logical('Die Abhängigkeiten des Validators mit dem Typ ' . $type . ' konnten nicht aufgelöst werden');
         }
@@ -56,21 +41,6 @@ class Vpfw_Factory {
         }
 
         switch ($type) {
-            case 'User':
-                self::$objectCache[$className] = new App_DataMapper_User(self::getDatabase());
-                break;
-            case 'Event':
-                self::$objectCache[$className] = new App_DataMapper_Event(self::getDatabase());
-                break;
-            case 'Location':
-                self::$objectCache[$className] = new App_DataMapper_Location(self::getDatabase());
-                break;
-            case 'Project':
-                self::$objectCache[$className] = new App_DataMapper_Project(self::getDatabase());
-                break;
-            case 'Link':
-                self::$objectCache[$className] = new App_DataMapper_Link(self::getDatabase());
-                break;
             default:
                 throw new Vpfw_Exception_Logical('Die Abhängigkeiten des DataMappers mit dem Typ ' . $type . ' konnten nicht aufgelöst werden');
                 break;
@@ -85,42 +55,6 @@ class Vpfw_Factory {
         }
 
         switch ($type) {
-            case 'User':
-                return new App_DataObject_User(self::getValidator('User'), $properties);
-                break;
-            case 'Event':
-                $location = null;
-                if (false == is_null($properties)) {
-                    if (true == isset($properties['LocationId'])) {
-                        try {
-                            $location = self::getDataMapper('Location')->getEntryById($properties['LocationId'], false);
-                        } catch (Vpfw_Exception_OutOfRange $e) {
-                            $location = self::getDataMapper('Location')->createEntry(array('Id' => $properties['LocationId'], 'Name' => $properties['LocationName']));
-                        }
-                        /**
-                         *  Die Informationen über das fremde DataObject müssen
-                         *  hier gelöscht werden, da sonst im Konstruktor des
-                         *  eigentlichen DataObjects eine Exception geworfen wird.
-                         */
-                        unset($properties['LocationId']);
-                        unset($properties['LocationName']);
-                    }
-                }
-                $dataObject = new App_DataObject_Event(self::getValidator('Event'), $properties);
-                if (false == is_null($location)) {
-                    $dataObject->setLocation($location);
-                }
-                return $dataObject;
-                break;
-            case 'Location':
-                return new App_DataObject_Location(self::getValidator('Location'), $properties);
-                break;
-            case 'Project':
-                return new App_DataObject_Project(self::getValidator('Project'), $properties);
-                break;
-            case 'Link':
-                return new App_DataObject_Link(self::getValidator('Link'), $properties);
-                break;
             default:
                 throw new Vpfw_Exception_Logical('Die Abhängigkeiten des DataObjects mit dem Typ ' . $type . ' konnten nicht aufgelöst werden');
                 break;
