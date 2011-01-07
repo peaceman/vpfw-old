@@ -3,7 +3,7 @@
 # Server version:               5.1.37-community
 # Server OS:                    Win32
 # HeidiSQL version:             6.0.0.3603
-# Date/time:                    2011-01-05 12:03:50
+# Date/time:                    2011-01-07 11:42:02
 # --------------------------------------------------------
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
@@ -93,7 +93,7 @@ CREATE TABLE IF NOT EXISTS `user` (
   `CreationIp` int(10) unsigned NOT NULL,
   `DeletionId` int(10) unsigned DEFAULT NULL COMMENT 'Der Benutzer gilt als gelöscht, wenn hier eine Id vermerkt ist.',
   `Username` varchar(32) NOT NULL,
-  `Passhash` varchar(32) NOT NULL COMMENT 'Begrenzung auf 32 Zeichen, da es sich um einen MD5 Hash handelt.',
+  `Passhash` binary(16) NOT NULL COMMENT 'MD5-Hash in der Binärdarstellung.',
   `Email` varchar(128) NOT NULL,
   PRIMARY KEY (`Id`),
   KEY `Email` (`Email`),
