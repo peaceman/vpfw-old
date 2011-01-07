@@ -32,7 +32,7 @@ abstract class Vpfw_DataObject_Abstract implements Vpfw_DataObject_Interface, Vp
 
     public function notifyObserver() {
         foreach ($this->observers as $observer) {
-            $observer->updateObservable($this);
+            $observer->observableUpdate($this);
         }
     }
     
@@ -137,7 +137,13 @@ abstract class Vpfw_DataObject_Abstract implements Vpfw_DataObject_Interface, Vp
             }
         }
     }
-    
+
+    /**
+     * @return int
+     */
+    public function getId() {
+        return $this->getData('Id');
+    }
     /**
      * Befüllt das Objekt mit den übergebenen Daten, welche jedoch nicht
      * validiert werden. Wird im Konstruktor des Objektes aufgerufen.
