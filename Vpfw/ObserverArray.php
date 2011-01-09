@@ -54,7 +54,7 @@ class Vpfw_ObserverArray implements ArrayAccess, Iterator, Countable, Vpfw_Inter
     public function observableUpdate(Vpfw_Interface_Observable $observable) {
         $key = array_search($observable, $this->storage, true);
         if (false !== $key) {
-            unset($this->storage[key]);
+            unset($this->storage[$key]);
         }
     }
 }

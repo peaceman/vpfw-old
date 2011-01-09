@@ -6,11 +6,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" readonly="true" id="8e2fbab2-6322-4835-9cfc-74b41903db7a" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/App/DataObject/Session.php" afterPath="$PROJECT_DIR$/App/DataObject/Session.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/App/DataMapper/User.php" afterPath="$PROJECT_DIR$/App/DataMapper/User.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/App/DataObject/User.php" afterPath="$PROJECT_DIR$/App/DataObject/User.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/App/DataObject/Deletion.php" afterPath="$PROJECT_DIR$/App/DataObject/Deletion.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Vpfw/Database/Mysql.php" afterPath="$PROJECT_DIR$/Vpfw/Database/Mysql.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Vpfw/Database/MysqlStmt.php" afterPath="$PROJECT_DIR$/Vpfw/Database/MysqlStmt.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Vpfw/Factory.php" afterPath="$PROJECT_DIR$/Vpfw/Factory.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Vpfw/ObserverArray.php" afterPath="$PROJECT_DIR$/Vpfw/ObserverArray.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path=".idea/workspace.xml" />
@@ -37,37 +36,46 @@
     <splitter split-orientation="horizontal" split-proportion="0.5">
       <split-first>
         <leaf>
-          <file leaf-file-name="Abstract.php" pinned="false" current="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/Vpfw/DataObject/Abstract.php">
-              <provider selected="true" editor-type-id="text-editor">
-                <state line="61" column="20" selection-start="1589" selection-end="1589" vertical-scroll-proportion="-10.72">
-                  <folding />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="Session.php" pinned="false" current="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/App/DataObject/Session.php">
-              <provider selected="true" editor-type-id="text-editor">
-                <state line="93" column="20" selection-start="1978" selection-end="1978" vertical-scroll-proportion="-10.48">
-                  <folding />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="User.php" pinned="false" current="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/App/DataObject/User.php">
-              <provider selected="true" editor-type-id="text-editor">
-                <state line="125" column="20" selection-start="3203" selection-end="3203" vertical-scroll-proportion="-10.48">
-                  <folding />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="Factory.php" pinned="false" current="true" current-in-tab="true">
+          <file leaf-file-name="Factory.php" pinned="false" current="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/Vpfw/Factory.php">
               <provider selected="true" editor-type-id="text-editor">
-                <state line="232" column="35" selection-start="11114" selection-end="11114" vertical-scroll-proportion="0.43765903">
+                <state line="297" column="44" selection-start="14903" selection-end="14903" vertical-scroll-proportion="-5.72">
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="Mysql.php" pinned="false" current="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/Vpfw/Database/Mysql.php">
+              <provider selected="true" editor-type-id="text-editor">
+                <state line="62" column="61" selection-start="1944" selection-end="1944" vertical-scroll-proportion="-5.72">
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="Php.php" pinned="false" current="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/Vpfw/Config/Php.php">
+              <provider selected="true" editor-type-id="text-editor">
+                <state line="13" column="15" selection-start="537" selection-end="537" vertical-scroll-proportion="-8.84">
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="Standard.php" pinned="false" current="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/Vpfw/Config/Standard.php">
+              <provider selected="true" editor-type-id="text-editor">
+                <state line="97" column="15" selection-start="4369" selection-end="4369" vertical-scroll-proportion="-11.12">
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="MysqlStmt.php" pinned="false" current="false" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/Vpfw/Database/MysqlStmt.php">
+              <provider selected="true" editor-type-id="text-editor">
+                <state line="41" column="24" selection-start="824" selection-end="824" vertical-scroll-proportion="0.36768448">
                   <folding />
                 </state>
               </provider>
@@ -76,7 +84,7 @@
           <file leaf-file-name="Picture.php" pinned="false" current="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/App/DataMapper/Picture.php">
               <provider selected="true" editor-type-id="text-editor">
-                <state line="80" column="73" selection-start="4437" selection-end="4437" vertical-scroll-proportion="-25.92">
+                <state line="50" column="58" selection-start="2582" selection-end="2582" vertical-scroll-proportion="-34.0">
                   <folding />
                 </state>
               </provider>
@@ -85,16 +93,25 @@
           <file leaf-file-name="Picture.php" pinned="false" current="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/App/DataObject/Picture.php">
               <provider selected="true" editor-type-id="text-editor">
-                <state line="244" column="20" selection-start="5970" selection-end="5970" vertical-scroll-proportion="-26.68">
+                <state line="229" column="37" selection-start="5693" selection-end="5693" vertical-scroll-proportion="-16.48">
                   <folding />
                 </state>
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="Session.php" pinned="false" current="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/App/DataMapper/Session.php">
+          <file leaf-file-name="RuleViolation.php" pinned="false" current="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/App/DataMapper/RuleViolation.php">
               <provider selected="true" editor-type-id="text-editor">
-                <state line="15" column="15" selection-start="513" selection-end="513" vertical-scroll-proportion="8.16">
+                <state line="1" column="34" selection-start="40" selection-end="40" vertical-scroll-proportion="-0.68">
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="RuleViolation.php" pinned="false" current="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/App/DataObject/RuleViolation.php">
+              <provider selected="true" editor-type-id="text-editor">
+                <state line="161" column="33" selection-start="4010" selection-end="4010" vertical-scroll-proportion="-24.64">
                   <folding />
                 </state>
               </provider>
@@ -103,7 +120,7 @@
           <file leaf-file-name="ObserverArray.php" pinned="false" current="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/Vpfw/ObserverArray.php">
               <provider selected="true" editor-type-id="text-editor">
-                <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="-0.0">
+                <state line="56" column="34" selection-start="1764" selection-end="1764" vertical-scroll-proportion="-10.44">
                   <folding />
                 </state>
               </provider>
@@ -116,7 +133,16 @@
           <file leaf-file-name="Abstract.php" pinned="false" current="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/Vpfw/DataMapper/Abstract.php">
               <provider selected="true" editor-type-id="text-editor">
-                <state line="165" column="68" selection-start="5645" selection-end="5645" vertical-scroll-proportion="14.44">
+                <state line="240" column="12" selection-start="8642" selection-end="8642" vertical-scroll-proportion="-8.0">
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="User.php" pinned="false" current="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/App/DataObject/User.php">
+              <provider selected="true" editor-type-id="text-editor">
+                <state line="171" column="18" selection-start="4509" selection-end="4509" vertical-scroll-proportion="-14.48">
                   <folding />
                 </state>
               </provider>
@@ -125,25 +151,25 @@
           <file leaf-file-name="Deletion.php" pinned="false" current="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/App/DataMapper/Deletion.php">
               <provider selected="true" editor-type-id="text-editor">
-                <state line="27" column="21" selection-start="1012" selection-end="1012" vertical-scroll-proportion="-8.84">
+                <state line="27" column="21" selection-start="1012" selection-end="1012" vertical-scroll-proportion="-14.96">
                   <folding />
                 </state>
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="User.php" pinned="false" current="false" current-in-tab="true">
+          <file leaf-file-name="User.php" pinned="false" current="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/App/DataMapper/User.php">
               <provider selected="true" editor-type-id="text-editor">
-                <state line="9" column="77" selection-start="379" selection-end="379" vertical-scroll-proportion="0.18681319">
+                <state line="9" column="77" selection-start="379" selection-end="379" vertical-scroll-proportion="-6.12">
                   <folding />
                 </state>
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="Deletion.php" pinned="false" current="false" current-in-tab="false">
+          <file leaf-file-name="Deletion.php" pinned="false" current="true" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/App/DataObject/Deletion.php">
               <provider selected="true" editor-type-id="text-editor">
-                <state line="74" column="36" selection-start="1877" selection-end="1877" vertical-scroll-proportion="-14.8">
+                <state line="96" column="5" selection-start="2385" selection-end="2385" vertical-scroll-proportion="2.0298507">
                   <folding />
                 </state>
               </provider>
@@ -174,7 +200,12 @@
         <option value="$PROJECT_DIR$/App/DataObject/User.php" />
         <option value="$PROJECT_DIR$/App/DataObject/Deletion.php" />
         <option value="$PROJECT_DIR$/App/DataMapper/Picture.php" />
+        <option value="$PROJECT_DIR$/App/DataMapper/RuleViolation.php" />
+        <option value="$PROJECT_DIR$/Vpfw/Database/Mysql.php" />
         <option value="$PROJECT_DIR$/Vpfw/Factory.php" />
+        <option value="$PROJECT_DIR$/Vpfw/ObserverArray.php" />
+        <option value="$PROJECT_DIR$/App/DataObject/RuleViolation.php" />
+        <option value="$PROJECT_DIR$/Vpfw/Database/MysqlStmt.php" />
       </list>
     </option>
   </component>
@@ -242,24 +273,6 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="Vpfw" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="DataMapper" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="vpfw" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="vpfw" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
               <option name="myItemId" value="App" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
@@ -279,24 +292,6 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="DataObject" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="vpfw" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="vpfw" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="App" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="DataMapper" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -396,6 +391,7 @@
       <window_info id="Dependency Viewer" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.19300362" sideWeight="0.43283582" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.39954075" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3295063" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -403,7 +399,6 @@
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
-      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
   <component name="VcsManagerConfiguration">
@@ -437,53 +432,6 @@
     <breakpoint-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/nbproject/project.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Vpfw/ObserverArray.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Vpfw/DataObject/Abstract.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="61" column="20" selection-start="1589" selection-end="1589" vertical-scroll-proportion="-10.72">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/App/DataMapper/Deletion.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="27" column="21" selection-start="1012" selection-end="1012" vertical-scroll-proportion="-8.84">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/App/DataMapper/Session.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="15" column="15" selection-start="513" selection-end="513" vertical-scroll-proportion="8.16">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Vpfw/DataMapper/Abstract.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="165" column="68" selection-start="5645" selection-end="5645" vertical-scroll-proportion="14.44">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/App/DataObject/Deletion.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="74" column="36" selection-start="1877" selection-end="1877" vertical-scroll-proportion="-14.8">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/App/DataObject/Session.php">
       <provider selected="true" editor-type-id="text-editor">
         <state line="93" column="20" selection-start="1978" selection-end="1978" vertical-scroll-proportion="-10.48">
@@ -493,35 +441,105 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/App/DataObject/Picture.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="244" column="20" selection-start="5970" selection-end="5970" vertical-scroll-proportion="-26.68">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/App/DataObject/User.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="125" column="20" selection-start="3203" selection-end="3203" vertical-scroll-proportion="-10.48">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/App/DataMapper/User.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="9" column="77" selection-start="379" selection-end="379" vertical-scroll-proportion="0.18681319">
+        <state line="229" column="37" selection-start="5693" selection-end="5693" vertical-scroll-proportion="-16.48">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/App/DataMapper/Picture.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="80" column="73" selection-start="4437" selection-end="4437" vertical-scroll-proportion="-25.92">
+        <state line="50" column="58" selection-start="2582" selection-end="2582" vertical-scroll-proportion="-34.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/App/DataMapper/Deletion.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="27" column="21" selection-start="1012" selection-end="1012" vertical-scroll-proportion="-14.96">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/App/DataMapper/User.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="9" column="77" selection-start="379" selection-end="379" vertical-scroll-proportion="-6.12">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/App/DataMapper/RuleViolation.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="1" column="34" selection-start="40" selection-end="40" vertical-scroll-proportion="-0.68">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Vpfw/Database/Mysql.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="62" column="61" selection-start="1944" selection-end="1944" vertical-scroll-proportion="-5.72">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Vpfw/Config/Php.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="13" column="15" selection-start="537" selection-end="537" vertical-scroll-proportion="-8.84">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Vpfw/Config/Standard.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="97" column="15" selection-start="4369" selection-end="4369" vertical-scroll-proportion="-11.12">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Vpfw/Factory.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="232" column="35" selection-start="11114" selection-end="11114" vertical-scroll-proportion="0.43765903">
+        <state line="297" column="44" selection-start="14903" selection-end="14903" vertical-scroll-proportion="-5.72">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Vpfw/ObserverArray.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="56" column="34" selection-start="1764" selection-end="1764" vertical-scroll-proportion="-10.44">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/App/DataObject/User.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="171" column="18" selection-start="4509" selection-end="4509" vertical-scroll-proportion="-14.48">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/App/DataObject/RuleViolation.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="161" column="33" selection-start="4010" selection-end="4010" vertical-scroll-proportion="-24.64">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Vpfw/Database/MysqlStmt.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="41" column="24" selection-start="824" selection-end="824" vertical-scroll-proportion="0.36768448">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Vpfw/DataMapper/Abstract.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="240" column="12" selection-start="8642" selection-end="8642" vertical-scroll-proportion="-8.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/App/DataObject/Deletion.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="96" column="5" selection-start="2385" selection-end="2385" vertical-scroll-proportion="2.0298507">
           <folding />
         </state>
       </provider>

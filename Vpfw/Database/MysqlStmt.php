@@ -39,7 +39,7 @@ class Vpfw_Database_MysqlStmt extends Vpfw_Abstract_Loggable {
      * @return bool
      */
     public function execute() {
-        $state = $stmt->execute();
+        $state = $this->stmt->execute();
         $this->mysql->addExecutedQuery($this->qry);
         return $state;
     }
