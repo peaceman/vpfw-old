@@ -97,6 +97,7 @@ class App_DataObject_Session extends Vpfw_DataObject_Abstract {
                 $this->validator->validateUserId($id);
             }
             $this->setData('UserId', $id);
+            $this->setUser(null);
         }
     }
 

@@ -129,6 +129,7 @@ class App_DataObject_User extends Vpfw_DataObject_Abstract {
                 $this->validator->validateDeletionId($id);
             }
             $this->setData('DeletionId', $id);
+            $this->setDeletion(null);
         }
     }
 

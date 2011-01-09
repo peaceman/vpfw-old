@@ -50,6 +50,9 @@ class Vpfw_Factory {
             case 'Session':
                 self::$objectCache[$className] = new App_DataMapper_Session(self::getDatabase());
                 break;
+            case 'Picture':
+                self::$objectCache[$className] = new App_DataMapper_Picture(self::getDatabase());
+                break;
             default:
                 throw new Vpfw_Exception_Logical('Die Abhängigkeiten des DataMappers mit dem Typ ' . $type . ' konnten nicht aufgelöst werden');
                 break;
@@ -144,18 +147,88 @@ class Vpfw_Factory {
                                     'Email' => $properties['Email'],
                                 )
                             );
-                            unset($properties['CreationTime'],
-                                  $properties['CreationIp'],
-                                  $properties['DeletionId'],
-                                  $properties['Username'],
-                                  $properties['Passhash'],
-                                  $properties['Email']);
                         }
+                        unset($properties['CreationTime'],
+                              $properties['CreationIp'],
+                              $properties['DeletionId'],
+                              $properties['Username'],
+                              $properties['Passhash'],
+                              $properties['Email']);
                     }
                 }
                 $dataObject = new App_DataObject_Session(self::getValidator('Session'), $properties);
                 if (false == is_null($user)) {
                     $dataObject->setUser($user);
+                }
+                return $dataObject;
+                break;
+            case 'Picture':
+                $session = null;
+                $deletion = null;
+                if (false == is_null($properties)) {
+                    /*
+                     * Wenn wir Informationen über die Session bekommen haben,
+                     * wird daraus ein DataObject erzeugt.
+                     */
+                    if (true == isset($properties['SesUserId'])) {
+                        try {
+                            $session = self::getDataMapper('Session')->getEntryById($properties['SessionId'], false);
+                        } catch (Vpfw_Exception_OutOfRange $e) {
+                            $session = self::getDataMapper('Session')->createEntry(
+                                array(
+                                    'Id' => $properties['SessionId'],
+                                    'UserId' => $properties['SesUserId'],
+                                    'Ip' => $properties['SesIp'],
+                                    'StartTime' => $properties['SesStartTime'],
+                                    'LastRequest' => $properties['SesLastRequest'],
+                                    'Hits' => $properties['SesHits'],
+                                    'UserAgent' => $properties['SesUserAgent'],
+                                )
+                            );
+                        }
+                        /*
+                         * Löschen der Sessionbezogenen Daten aus dem Eigenschaften-
+                         * array des Bildes
+                         */
+                        unset($properties['SesUserId'],
+                              $properties['SesIp'],
+                              $properties['SesStartTime'],
+                              $properties['SesLastRequest'],
+                              $properties['SesHits'],
+                              $properties['SesUserAgent']);
+                    }
+                    /*
+                     * Wenn wir Informationen über die Löschung bekommen haben,
+                     * wird daraus ein DataObject erzeugt.
+                     */
+                    if (true == isset($properties['DelSessionId'])) {
+                        try {
+                            $deletion = self::getDataMapper('Session')->getEntryById($properties['DeletionId'], false);
+                        } catch (Vpfw_Exception_OutOfRange $e) {
+                            $deletion = self::getDataMapper('Session')->createEntry(
+                                array(
+                                    'Id' => $properties['DeletionId'],
+                                    'SessionId' => $properties['DelSessionId'],
+                                    'Time' => $properties['DelTime'],
+                                    'Reason' => $properties['DelReason'],
+                                )
+                            );
+                        }
+                        /*
+                         * Löschen der Löschungsbezogenen Daten aus dem Eigenschaften-
+                         * array des Bildes
+                         */
+                        unset($properties['DelSessionId'],
+                              $properties['DelTime'],
+                              $properties['DelReason']);
+                    }
+                }
+                $dataObject = new App_DataObject_Picture(self::getValidator('Picture'), $properties);
+                if (false == is_null($session)) {
+                    $dataObject->setSession($session);
+                }
+                if (false == is_null($deletion)) {
+                    $dataObject->setDeletion($deletion);
                 }
                 return $dataObject;
                 break;

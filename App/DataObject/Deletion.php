@@ -72,6 +72,7 @@ class App_DataObject_Deletion extends Vpfw_DataObject_Abstract {
                 $this->validator->validateSessionId($sessionId);
             }
             $this->setData('SessionId', $sessionId);
+            $this->setSession(null);
         }
     }
 
