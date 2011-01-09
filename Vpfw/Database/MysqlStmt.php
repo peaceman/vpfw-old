@@ -19,7 +19,6 @@ class Vpfw_Database_MysqlStmt extends Vpfw_Abstract_Loggable {
     private $mysql;
     
     /**
-     *
      * @param mysqli_stmt $stmt
      * @param string $qry 
      */
@@ -45,7 +44,6 @@ class Vpfw_Database_MysqlStmt extends Vpfw_Abstract_Loggable {
     }
     
     /**
-     *
      * @param string $types
      * @return bool 
      */
