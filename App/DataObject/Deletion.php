@@ -69,7 +69,7 @@ class App_DataObject_Deletion extends Vpfw_DataObject_Abstract {
     public function setSessionId($sessionId, $validate = true) {
         if ($this->getSessionId() != $sessionId) {
             if (true == $validate) {
-                $this->validator->validateDeletionId($sessionId);
+                $this->validator->validateSessionId($sessionId);
             }
             $this->setData('SessionId', $sessionId);
         }

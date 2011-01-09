@@ -47,6 +47,9 @@ class Vpfw_Factory {
             case 'Deletion':
                 self::$objectCache[$className] = new App_DataMapper_Deletion(self::getDatabase());
                 break;
+            case 'Session':
+                self::$objectCache[$className] = new App_DataMapper_Session(self::getDatabase());
+                break;
             default:
                 throw new Vpfw_Exception_Logical('Die Abhängigkeiten des DataMappers mit dem Typ ' . $type . ' konnten nicht aufgelöst werden');
                 break;
@@ -71,7 +74,7 @@ class Vpfw_Factory {
             case 'User':
                 $deletion = null; /* @var $deletion App_DataObject_Deletion */
                 if (false == is_null($properties)) {
-                    if (true == isset($properties['DeletionId'])) {
+                    if (true == isset($properties['DelSessionId'])) {
                         try {
                             $deletion = self::getDataMapper('Deletion')->getEntryById($properties['DeletionId'], false);
                         } catch (Vpfw_Exception_OutOfRange $e) {
@@ -82,7 +85,6 @@ class Vpfw_Factory {
                                           'Reason' => $properties['DelReason'])
                             );
                         }
-                        unset($properties['DeletionId']);
                         unset($properties['DelSessionId']);
                         unset($properties['DelTime']);
                         unset($properties['DelReason']);
@@ -97,7 +99,7 @@ class Vpfw_Factory {
             case 'Deletion':
                 $session = null;
                 if (false == is_null($properties)) {
-                    if (true == isset($properties['UserId'])) {
+                    if (true == isset($properties['Ip'])) {
                         try {
                             $session = self::getDataMapper('Session')->getEntryById($properties['SessionId'], false);
                         } catch (Vpfw_Exception_OutOfRange $e) {
@@ -111,8 +113,7 @@ class Vpfw_Factory {
                                       'UserAgent' => $properties['UserAgent'])
                             );
                         }
-                        unset($properties['UserId'],
-                              $properties['Ip'],
+                        unset($properties['Ip'],
                               $properties['StartTime'],
                               $properties['LastRequest'],
                               $properties['Hits'],
@@ -122,6 +123,39 @@ class Vpfw_Factory {
                 $dataObject = new App_DataObject_Deletion(self::getValidator('Deletion'), $properties);
                 if (false == is_null($session)) {
                     $dataObject->setSession($session);
+                }
+                return $dataObject;
+                break;
+            case 'Session':
+                $user = null;
+                if (false == is_null($properties)) {
+                    if (true == isset($properties['CreationTime'])) {
+                        try {
+                            $user = self::getDataMapper('User')->getEntryById($properties['UserId'], false);
+                        } catch (Vpfw_Exception_OutOfRange $e) {
+                            $user = self::getDataMapper('User')->createEntry(
+                                array(
+                                    'Id' => $properties['UserId'],
+                                    'CreationTime' => $properties['CreationTime'],
+                                    'CreationIp' => $properties['CreationIp'],
+                                    'DeletionId' => $properties['DeletionId'],
+                                    'Username' => $properties['Username'],
+                                    'Passhash' => $properties['Passhash'],
+                                    'Email' => $properties['Email'],
+                                )
+                            );
+                            unset($properties['CreationTime'],
+                                  $properties['CreationIp'],
+                                  $properties['DeletionId'],
+                                  $properties['Username'],
+                                  $properties['Passhash'],
+                                  $properties['Email']);
+                        }
+                    }
+                }
+                $dataObject = new App_DataObject_Session(self::getValidator('Session'), $properties);
+                if (false == is_null($user)) {
+                    $dataObject->setUser($user);
                 }
                 return $dataObject;
                 break;
