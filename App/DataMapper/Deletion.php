@@ -32,6 +32,40 @@ class App_DataMapper_Deletion extends Vpfw_DataMapper_Abstract {
                                             a.SessionId = b.Id
                                         WHERE
                                             a.Id = ?';
+        $this->sqlQueries['getByFv'] = 'SELECT
+                                            a.Id,
+                                            a.SessionId,
+                                            a.Time,
+                                            a.Reason,
+                                            b.UserId,
+                                            b.Ip,
+                                            b.StartTime,
+                                            b.LastRequest,
+                                            b.Hits,
+                                            b.UserAgent
+                                        FROM
+                                            deletion AS a
+                                        INNER JOIN
+                                            session AS b ON
+                                            a.SessionId = b.Id
+                                        WHERE
+                                            {WhereClause}';
+        $this->sqlQueries['getAll'] = 'SELECT
+                                           a.Id,
+                                           a.SessionId,
+                                           a.Time,
+                                           a.Reason,
+                                           b.UserId,
+                                           b.Ip,
+                                           b.StartTime,
+                                           b.LastRequest,
+                                           b.Hits,
+                                           b.UserAgent
+                                       FROM
+                                           deletion AS a
+                                       INNER JOIN
+                                           session AS b ON
+                                           a.SessionId = b.Id';
     }
 }
  
