@@ -1,9 +1,9 @@
 # --------------------------------------------------------
 # Host:                         127.0.0.1
-# Server version:               5.1.37-community
-# Server OS:                    Win32
+# Server version:               5.5.8
+# Server OS:                    Win64
 # HeidiSQL version:             6.0.0.3603
-# Date/time:                    2011-01-07 11:42:02
+# Date/time:                    2011-01-11 01:12:08
 # --------------------------------------------------------
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
@@ -12,7 +12,6 @@
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 
 # Dumping structure for table facejudgement.deletion
-DROP TABLE IF EXISTS `deletion`;
 CREATE TABLE IF NOT EXISTS `deletion` (
   `Id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `SessionId` int(10) unsigned NOT NULL COMMENT 'Wer hat gelöscht?',
@@ -27,7 +26,6 @@ CREATE TABLE IF NOT EXISTS `deletion` (
 
 
 # Dumping structure for table facejudgement.picture
-DROP TABLE IF EXISTS `picture`;
 CREATE TABLE IF NOT EXISTS `picture` (
   `Id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `Md5` binary(16) NOT NULL COMMENT 'MD5 Hash des Bildes. Mit diesem Hash wird überprüft, ob sich das Bild bereits auf der Plattform existiert.',
@@ -49,12 +47,65 @@ CREATE TABLE IF NOT EXISTS `picture` (
 # Data exporting was unselected.
 
 
+# Dumping structure for table facejudgement.rbac_object
+CREATE TABLE IF NOT EXISTS `rbac_object` (
+  `Id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `Default` tinyint(3) unsigned NOT NULL,
+  `Name` varchar(32) NOT NULL,
+  PRIMARY KEY (`Id`),
+  KEY `Name` (`Name`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+# Data exporting was unselected.
+
+
+# Dumping structure for table facejudgement.rbac_permission
+CREATE TABLE IF NOT EXISTS `rbac_permission` (
+  `Id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `RoleId` int(10) unsigned NOT NULL,
+  `ObjectId` int(10) unsigned NOT NULL,
+  `State` tinyint(3) unsigned NOT NULL,
+  PRIMARY KEY (`Id`),
+  KEY `RoleId` (`RoleId`),
+  KEY `ObjectId` (`ObjectId`),
+  CONSTRAINT `FK_rbac_permission2role_rbac_role` FOREIGN KEY (`RoleId`) REFERENCES `rbac_role` (`Id`),
+  CONSTRAINT `FK_rbac_permission_rbac_object` FOREIGN KEY (`ObjectId`) REFERENCES `rbac_object` (`Id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+# Data exporting was unselected.
+
+
+# Dumping structure for table facejudgement.rbac_role
+CREATE TABLE IF NOT EXISTS `rbac_role` (
+  `Id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `Name` varchar(32) NOT NULL,
+  PRIMARY KEY (`Id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+# Data exporting was unselected.
+
+
+# Dumping structure for table facejudgement.rbac_user2role
+CREATE TABLE IF NOT EXISTS `rbac_user2role` (
+  `Id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `RoleId` int(10) unsigned NOT NULL,
+  `UserId` int(10) unsigned NOT NULL,
+  PRIMARY KEY (`Id`),
+  KEY `RoleId` (`RoleId`),
+  KEY `UserId` (`UserId`),
+  CONSTRAINT `FK_rbac_role` FOREIGN KEY (`RoleId`) REFERENCES `rbac_role` (`Id`),
+  CONSTRAINT `FK_rbac_user2role_user` FOREIGN KEY (`UserId`) REFERENCES `user` (`Id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+# Data exporting was unselected.
+
+
 # Dumping structure for table facejudgement.ruleviolation
-DROP TABLE IF EXISTS `ruleviolation`;
 CREATE TABLE IF NOT EXISTS `ruleviolation` (
   `Id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `PictureId` int(10) unsigned NOT NULL COMMENT 'Um welches Bild handelt es sich?',
   `SessionId` int(10) unsigned NOT NULL COMMENT 'Wer hat den Regelverstoß gemeldet?',
+  `Time` int(10) DEFAULT NULL COMMENT 'Wann wurde der Regelverstoß gemeldet?',
   `Handled` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT 'Wurde der Regelvestoß bereits bearbeitet?',
   `Reason` text NOT NULL COMMENT 'Gegen was verstößt dieses Bild?',
   PRIMARY KEY (`Id`),
@@ -68,7 +119,6 @@ CREATE TABLE IF NOT EXISTS `ruleviolation` (
 
 
 # Dumping structure for table facejudgement.session
-DROP TABLE IF EXISTS `session`;
 CREATE TABLE IF NOT EXISTS `session` (
   `Id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `UserId` int(10) unsigned DEFAULT NULL COMMENT 'Optionales Feld',
@@ -86,7 +136,6 @@ CREATE TABLE IF NOT EXISTS `session` (
 
 
 # Dumping structure for table facejudgement.user
-DROP TABLE IF EXISTS `user`;
 CREATE TABLE IF NOT EXISTS `user` (
   `Id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `CreationTime` int(10) unsigned NOT NULL,
