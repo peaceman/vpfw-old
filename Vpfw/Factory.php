@@ -56,6 +56,9 @@ class Vpfw_Factory {
             case 'RuleViolation':
                 self::$objectCache[$className] = new App_DataMapper_RuleViolation(self::getDatabase());
                 break;
+            case 'PictureComment':
+                self::$objectCache[$className] = new App_DataMapper_PictureComment(self::getDatabase());
+                break;
             default:
                 throw new Vpfw_Exception_Logical('Die Abhängigkeiten des DataMappers mit dem Typ ' . $type . ' konnten nicht aufgelöst werden');
                 break;
@@ -206,9 +209,9 @@ class Vpfw_Factory {
                      */
                     if (true == isset($properties['DelSessionId'])) {
                         try {
-                            $deletion = self::getDataMapper('Session')->getEntryById($properties['DeletionId'], false);
+                            $deletion = self::getDataMapper('Deletion')->getEntryById($properties['DeletionId'], false);
                         } catch (Vpfw_Exception_OutOfRange $e) {
-                            $deletion = self::getDataMapper('Session')->createEntry(
+                            $deletion = self::getDataMapper('Deletion')->createEntry(
                                 array(
                                     'Id' => $properties['DeletionId'],
                                     'SessionId' => $properties['DelSessionId'],
@@ -296,6 +299,91 @@ class Vpfw_Factory {
                 }
                 if (false == is_null($session)) {
                     $dataObject->setSession($session);
+                }
+                return $dataObject;
+                break;
+            case 'PictureMapper':
+                $session = null;
+                $picture = null;
+                $deletion = null;
+                if (false == is_null($properties)) {
+                    if (true == isset($properties['SesUserId'])) {
+                        try {
+                            $session = self::getDataMapper('Session')->getEntryById($properties['SessionId'], false);
+                        } catch (Vpfw_Exception_OutOfRange $e) {
+                            $session = self::getDataMapper('Session')->createEntry(
+                                array(
+                                    'Id' => $properties['SessionId'],
+                                    'UserId' => $properties['SesUserId'],
+                                    'Ip' => $properties['SesIp'],
+                                    'StartTime' => $properties['SesStartTime'],
+                                    'LastRequest' => $properties['SesLastRequest'],
+                                    'Hits' => $properties['SesHits'],
+                                    'UserAgent' => $properties['SesUserAgent'],
+                                )
+                            );
+                        }
+                        unset($properties['SesUserId'],
+                              $properties['SesIp'],
+                              $properties['SesStartTime'],
+                              $properties['SesLastRequest'],
+                              $properties['SesHits'],
+                              $properties['SesUserAgent']);
+                    }
+                    if (true == isset($properties['PicMd5'])) {
+                        try {
+                            $picture = self::getDataMapper('Picture')->getEntryById($properties['PictureId'], false);
+                        } catch (Vpfw_Exception_OutOfRange $e) {
+                            $picture = self::getDataMapper('Picture')->createEntry(
+                                array(
+                                    'Id' => $properties['PictureId'],
+                                    'Md5' => $properties['PicMd5'],
+                                    'Gender' => $properties['PicGender'],
+                                    'SessionId' => $properties['PicSessionId'],
+                                    'UploadTime' => $properties['PicUploadTime'],
+                                    'SiteHits' => $properties['PicSiteHits'],
+                                    'PositiveRating' => $properties['PicPositiveRating'],
+                                    'NegativeRating' => $properties['PicNegativeRating'],
+                                    'DeletionId' => $properties['PicDeletionId']
+                                )
+                            );
+                        }
+                        unset($properties['PicMd5'],
+                              $properties['PicGender'],
+                              $properties['PicSessionId'],
+                              $properties['PicUploadTime'],
+                              $properties['PicSiteHits'],
+                              $properties['PicPositiveRating'],
+                              $properties['PicNegativeRating'],
+                              $properties['PicDeletionId']);
+                    }
+                    if (true == isset($properties['DelSessionId'])) {
+                        try {
+                            $deletion = self::getDataMapper('Deletion')->getEntryById($properties['DeletionId'], false);
+                        } catch (Vpfw_Exception_OutOfRange $e) {
+                            $deletion = self::getDataMapper('Deletion')->createEntry(
+                                array(
+                                    'Id' => $properties['DeletionId'],
+                                    'SessionId' => $properties['DelSessionId'],
+                                    'Time' => $properties['DelTime'],
+                                    'Reason' => $properties['DelReason'],
+                                )
+                            );
+                        }
+                        unset($properties['DelSessionId'],
+                              $properties['DelTime'],
+                              $properties['DelReason']);
+                    }
+                }
+                $dataObject = new App_DataObject_PictureComment(self::getValidator('PictureComment'), $properties);
+                if (false == is_null($deletion)) {
+                    $dataObject->setDeletion($deletion);
+                }
+                if (false == is_null($session)) {
+                    $dataObject->setSession($session);
+                }
+                if (false == is_null($picture)) {
+                    $dataObject->setPicture($picture);
                 }
                 return $dataObject;
                 break;

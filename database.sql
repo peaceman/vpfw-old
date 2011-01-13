@@ -3,13 +3,53 @@
 # Server version:               5.5.8
 # Server OS:                    Win64
 # HeidiSQL version:             6.0.0.3603
-# Date/time:                    2011-01-11 01:12:08
+# Date/time:                    2011-01-12 20:53:44
 # --------------------------------------------------------
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET NAMES utf8 */;
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+
+# Dumping structure for table facejudgement.comment
+CREATE TABLE IF NOT EXISTS `comment` (
+  `Id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `SessionId` int(10) unsigned NOT NULL COMMENT 'In welcher Session wurde dieser Kommentar verfasst?',
+  `PictureId` int(10) unsigned NOT NULL COMMENT 'Auf welches Bild bezieht sich der Kommentar?',
+  `DeletionId` int(10) unsigned DEFAULT NULL COMMENT 'Wurde der Kommentar gelöscht?',
+  `Time` int(10) unsigned NOT NULL COMMENT 'Wann wurde der Kommentar erstellt?',
+  `Text` varchar(255) NOT NULL,
+  PRIMARY KEY (`Id`),
+  KEY `SessionId` (`SessionId`),
+  KEY `PictureId` (`PictureId`),
+  KEY `DeletionId` (`DeletionId`),
+  CONSTRAINT `FK__deletion` FOREIGN KEY (`DeletionId`) REFERENCES `deletion` (`Id`),
+  CONSTRAINT `FK__picture` FOREIGN KEY (`PictureId`) REFERENCES `picture` (`Id`),
+  CONSTRAINT `FK__session` FOREIGN KEY (`SessionId`) REFERENCES `session` (`Id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+# Data exporting was unselected.
+
+
+# Dumping structure for table facejudgement.comparison_log
+CREATE TABLE IF NOT EXISTS `comparison_log` (
+  `Id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `PictureId1` int(10) unsigned NOT NULL,
+  `PictureId2` int(10) unsigned NOT NULL,
+  `Time` int(10) unsigned NOT NULL,
+  `SessionId` int(10) unsigned NOT NULL,
+  `Winner` tinyint(3) unsigned NOT NULL,
+  PRIMARY KEY (`Id`),
+  KEY `PictureId1` (`PictureId1`),
+  KEY `PictureId2` (`PictureId2`),
+  KEY `SessionId` (`SessionId`),
+  CONSTRAINT `FK_picture` FOREIGN KEY (`PictureId1`) REFERENCES `picture` (`Id`),
+  CONSTRAINT `FK_session` FOREIGN KEY (`SessionId`) REFERENCES `session` (`Id`),
+  CONSTRAINT `FK_picture_2` FOREIGN KEY (`PictureId2`) REFERENCES `picture` (`Id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+# Data exporting was unselected.
+
 
 # Dumping structure for table facejudgement.deletion
 CREATE TABLE IF NOT EXISTS `deletion` (
@@ -20,6 +60,25 @@ CREATE TABLE IF NOT EXISTS `deletion` (
   PRIMARY KEY (`Id`),
   KEY `SessionId` (`SessionId`),
   CONSTRAINT `FK_deletion_session` FOREIGN KEY (`SessionId`) REFERENCES `session` (`Id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+# Data exporting was unselected.
+
+
+# Dumping structure for table facejudgement.favorite_comparison
+CREATE TABLE IF NOT EXISTS `favorite_comparison` (
+  `Id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `PictureId1` int(10) unsigned NOT NULL,
+  `PictureId2` int(10) unsigned NOT NULL,
+  `SessionId` int(10) unsigned NOT NULL,
+  `Time` int(10) unsigned NOT NULL,
+  PRIMARY KEY (`Id`),
+  KEY `PictureId1` (`PictureId1`),
+  KEY `PictureId2` (`PictureId2`),
+  KEY `SessionId` (`SessionId`),
+  CONSTRAINT `FK_favorite_comparison_picture` FOREIGN KEY (`PictureId1`) REFERENCES `picture` (`Id`),
+  CONSTRAINT `FK_favorite_comparison_picture_2` FOREIGN KEY (`PictureId2`) REFERENCES `picture` (`Id`),
+  CONSTRAINT `FK_favorite_comparison_session` FOREIGN KEY (`SessionId`) REFERENCES `session` (`Id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 # Data exporting was unselected.
@@ -105,8 +164,8 @@ CREATE TABLE IF NOT EXISTS `ruleviolation` (
   `Id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `PictureId` int(10) unsigned NOT NULL COMMENT 'Um welches Bild handelt es sich?',
   `SessionId` int(10) unsigned NOT NULL COMMENT 'Wer hat den Regelverstoß gemeldet?',
-  `Time` int(10) DEFAULT NULL COMMENT 'Wann wurde der Regelverstoß gemeldet?',
-  `Handled` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT 'Wurde der Regelvestoß bereits bearbeitet?',
+  `Time` int(10) unsigned NOT NULL COMMENT 'Wann wurde der Regelverstoß gemeldet?',
+  `Handled` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT 'Wurde der Regelverstoß bereits bearbeitet?',
   `Reason` text NOT NULL COMMENT 'Gegen was verstößt dieses Bild?',
   PRIMARY KEY (`Id`),
   KEY `PictureId` (`PictureId`),

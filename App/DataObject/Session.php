@@ -107,6 +107,9 @@ class App_DataObject_Session extends Vpfw_DataObject_Abstract {
      */
     public function setUser(App_DataObject_User $user) {
         $this->user = $user;
+        if (true == is_object($user)) {
+            $this->setData('UserId', $user->getId());
+        }
     }
 
     /**
@@ -178,15 +181,6 @@ class App_DataObject_Session extends Vpfw_DataObject_Abstract {
             }
             $this->setData('UserAgent', $userAgent);
         }
-    }
-
-    /**
-     * @param int $which
-     * @return array
-     */
-    public function exportData($which = Vpfw_DataObject_Interface::WITHOUT_ID) {
-        $this->setData('UserId', $this->getUserId(), false);
-        return parent::exportData($which);
     }
 }
  

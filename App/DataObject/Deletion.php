@@ -81,6 +81,9 @@ class App_DataObject_Deletion extends Vpfw_DataObject_Abstract {
      */
     public function setSession(App_DataObject_Session $session) {
         $this->session = $session;
+        if (true == is_object($session)) {
+            $this->setData('SessionId', $session->getId());
+        }
     }
 
     /**
@@ -107,15 +110,6 @@ class App_DataObject_Deletion extends Vpfw_DataObject_Abstract {
             }
             $this->setData('Reason', $reason);
         }
-    }
-
-    /**
-     * @param int $which
-     * @return array
-     */
-    public function exportData($which = Vpfw_DataObject_Interface::WITHOUT_ID) {
-        $this->setData('SessionId', $this->getSessionId(), false);
-        return parent::exportData($which);
     }
 }
  

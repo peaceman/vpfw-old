@@ -138,6 +138,9 @@ class App_DataObject_User extends Vpfw_DataObject_Abstract {
      */
     public function setDeletion(App_DataObject_Deletion $deletion) {
         $this->deletion = $deletion;
+        if (true == is_object($deletion)) {
+            $this->setData('DeletionId', $deletion->getId());
+        }
     }
     
     /**
@@ -178,14 +181,5 @@ class App_DataObject_User extends Vpfw_DataObject_Abstract {
             }
             $this->setData('Email', $email);
         }
-    }
-
-    /**
-     * @param int $which
-     * @return array
-     */
-    public function exportData($which = Vpfw_DataObject_Interface::WITHOUT_ID) {
-        $this->setData('DeletionId', $this->getDeletionId(), false);
-        return parent::exportData($which);
     }
 }
